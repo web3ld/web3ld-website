@@ -1,0 +1,52 @@
+/* components/header/header.module.css */
+/* Spacer so content isn't hidden behind fixed header */
+.spacer { height: 90px; }                 /* desktop */
+@media (max-width: 730px) { .spacer { height: 60px; } }  /* mobile */
+/* Fixed header */
+.fixed {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: var(--primary);
+  /* 2px borders: left, right, bottom (no top) */
+  border-left: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  /* subtle shadow under the bottom border */
+  box-shadow: 0 4px 10px rgba(0,0,0,.18);
+  z-index: 50;
+  height: 90px;                           /* desktop */
+}
+@media (max-width: 730px) {
+  .fixed { height: 60px; }                /* mobile */
+}
+/* Positioning context */
+.inner { position: relative; height: 100%; }
+/* Absolutely positioned children */
+.left   { position: absolute; left: 12px;  top: 50%; transform: translateY(-50%); }
+.center { position: absolute; left: 50%;   top: 50%; transform: translate(-50%, -50%); text-decoration: none; }
+.right  { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); }
+/* Logo sizes */
+.logo { display: block; height: 32px; width: auto; }    /* mobile */
+@media (min-width: 731px) { .logo { height: 48px; } }   /* desktop (was 64, now 48) */
+/* Hamburger placeholder */
+.hamburger { width: 28px; height: 28px; }               /* mobile */
+@media (min-width: 731px) { .hamburger { width: 30px; height: 30px; } } /* desktop */
+/* GitHub sizes: CSS-only switch between two rendered instances */
+.githubMobile { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+.githubDesktop { 
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+@media (min-width: 731px) {
+  .githubMobile { display: none; }
+  .githubDesktop { display: flex; margin-left: 1rem; }
+}

@@ -1,0 +1,85 @@
+/* components/footer/footer.module.css */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 1rem 1rem;
+  background: var(--primary);
+  border-top: 2px solid var(--accent);
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+/* Desktop max width container */
+@media (min-width: 731px) {
+  .topRow {
+    max-width: 1000px;
+  }
+}
+
+.link {
+  color: var(--white);
+  font-family: var(--primary-font);
+  text-decoration: none;
+  transition: color 1s ease;
+}
+
+.link:hover {
+  color: var(--green);
+}
+
+/* Terms and Privacy positioning */
+.terms {
+  flex: 1;
+  text-align: center;
+}
+
+.privacy {
+  flex: 1;
+  text-align: center;
+}
+
+.githubWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+/* GitHub icon sizes */
+.githubMobile {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+
+.githubDesktop {
+  display: none;
+  width: 70px;
+  height: 70px;
+}
+
+@media (min-width: 731px) {
+  .githubMobile {
+    display: none;
+  }
+  .githubDesktop {
+    display: block;
+  }
+}
+
+.copyright {
+  color: var(--green);
+  font-family: var(--primary-font);
+  font-weight: 500;
+  text-align: center;
+  font-size: 1rem;
+  margin: 0;
+}

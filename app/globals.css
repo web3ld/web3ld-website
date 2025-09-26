@@ -74,3 +74,12 @@ p{
   h6{font-size:1rem;}     /* 16px */
   p {font-size:0.875rem;} /* ~14px */
 }
+
+*::-webkit-scrollbar {
+  background-color: var(--primary);    /* track background */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--accent);     /* thumb color */
+}
+
