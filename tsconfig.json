@@ -1,6 +1,7 @@
+// c:\Users\Mattj\web3ld-hub\web3ld-website\tsconfig.json
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,14 +14,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",                       /* ADDED: required for "paths" to work */
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["components/*"]   /* ADDED alias */
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
