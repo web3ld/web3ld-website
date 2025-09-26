@@ -14,10 +14,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",                       /* ADDED: required for "paths" to work */
+    "baseUrl": ".",                       
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["components/*"]   /* ADDED alias */
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"]
     },
     "plugins": [
       {

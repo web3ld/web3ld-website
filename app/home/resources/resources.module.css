@@ -1,0 +1,16 @@
+/* app/home/resources/resources.module.css */
+.section {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  border-bottom: 2px solid var(--accent);
+}
+
+.content {
+  text-align: center;
+  color: var(--white);
+  font-family: var(--primary-font);
+  font-size: 1.8rem;
+}

@@ -1,22 +1,21 @@
-// app/page.tsx  (server component — NO "use client")
-import Github from "@components/utilities/socials/github";
+// app/page.tsx (or app/home/page.tsx)
+import PageWrapper from '../components/pagewrapper/pagewrapper';
+import Hero from './home/hero/hero';
+import Sponsor from './home/sponsor/sponsor';
+import Resources from './home/resources/resources';
+import FAQ from './home/faq/faq';
+import Contact from './home/contact/contact';
 
-export default function Page() {
+export default function HomePage() {
+  const sectionIds = ['hero', 'sponsor', 'resources', 'faq', 'contact'];
+  
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {/* default is 200px wide and green per the component's CSS module */}
-      <Github />
-
-      {/* you can override: */}
-      {/* <Github size={120} className="some-class" /> */}
-      {/* or inline override color: <div style={{ color: 'var(--green)'}}><Github /></div> */}
-    </main>
+    <PageWrapper sectionIds={sectionIds}>
+      <Hero />
+      <Sponsor />
+      <Resources />
+      <FAQ />
+      <Contact />
+    </PageWrapper>
   );
 }
