@@ -45,13 +45,8 @@
 
   -webkit-overflow-scrolling: touch;
 
-  /* keep strong snap on mobile */
-  scroll-snap-type: x mandatory;
-  /* make snap land with the same side spacing as wrapper on mobile */
-  scroll-padding-inline: 24px;
-
-  /* mobile: give side breathing room and add bottom padding so cards don't touch the scrollbar */
-  padding: 0 24px 16px;
+  /* MOBILE: remove left AND right extra space so first/last cards sit flush with the wrapper’s inner edge */
+  padding: 0 0 16px 0; /* top right bottom left */
 }
 
 /* snap each card */
@@ -65,7 +60,6 @@
 }
 .track::-webkit-scrollbar-track {
   background: var(--dark-green); /* same as wrapper bg */
-  border-radius: 999px;
 }
 .track::-webkit-scrollbar-thumb {
   background: var(--green-accent);
@@ -73,16 +67,10 @@
   border: 3px solid var(--dark-green); /* creates the “padded” look */
 }
 
-/* gradient fades only on desktop (keeps mobile clean) */
-.fadeLeft,
-.fadeRight {
-  display: none;
-}
-
-/* Desktop: two rows, proportional distribution, extra L/R padding, and NO snap */
+/* Desktop: two rows, proportional distribution, extra L/R padding; NO fades */
 @media (min-width: 1024px) {
   .wrapper {
-    /* increase horizontal padding so the first/last cards aren't under the fades */
+    /* keep horizontal padding so content isn't hard against the container edges */
     padding: 20px 88px;
   }
 
@@ -90,40 +78,14 @@
     /* TWO ROWS on desktop, still horizontal scroll */
     grid-template-rows: repeat(2, 300px);
     gap: 24px 24px; /* row-gap 24px, column-gap 24px */
-    padding: 0;     /* wrapper handles the side space */
 
-    /* ensure only the bottom padding differs (added below) */
+    /* wrapper handles the side space; keep only some bottom breathing room */
+    padding: 0 0 16px 0;
+
     /* disable snapping on desktop for smooth wheel/trackpad scrolling */
     scroll-snap-type: none;
-    /* still define padding so if you re-enable snap later it lands right */
+
+    /* if snap is re-enabled later, this keeps alignment sensible */
     scroll-padding-inline: 88px;
-
-    /* ONLY ADD: bottom breathing room so the bottom row isn't flush with the scrollbar */
-    padding-bottom: 16px;
-  }
-
-  .fadeLeft,
-  .fadeRight {
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 64px; /* fade width */
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .fadeLeft {
-    left: 0;
-    background: linear-gradient(to right, var(--dark-green) 0%, rgba(0,0,0,0) 100%);
-    border-top-left-radius: var(--container-corners);
-    border-bottom-left-radius: var(--container-corners);
-  }
-
-  .fadeRight {
-    right: 0;
-    background: linear-gradient(to left, var(--dark-green) 0%, rgba(0,0,0,0) 100%);
-    border-top-right-radius: var(--container-corners);
-    border-bottom-right-radius: var(--container-corners);
   }
 }

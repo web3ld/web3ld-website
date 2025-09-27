@@ -12,10 +12,6 @@ export default function ResourcesSection() {
         <h2 className={styles.title}>Resources</h2>
 
         <div className={styles.wrapper}>
-          {/* desktop-only gradient fades */}
-          <div className={styles.fadeLeft} aria-hidden="true" />
-          <div className={styles.fadeRight} aria-hidden="true" />
-
           {/* Horizontal-only track (single row at all sizes) */}
           <div className={styles.track}>
             <Card variant="green" />

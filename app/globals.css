@@ -23,7 +23,7 @@
   --button-corners: 200px;
   --container-corners: 10px;
 
-  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
+  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
 }
 
 /* box-sizing reset */
