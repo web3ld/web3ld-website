@@ -4,8 +4,30 @@ import { useEffect, useRef, useState } from 'react';
 export function useSectionObserver(sectionIds: string[]) {
   const [activeSection, setActiveSection] = useState<string>('');
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const hasScrolledToInitialHash = useRef(false);
 
   useEffect(() => {
+    // Handle initial hash on page load
+    if (!hasScrolledToInitialHash.current) {
+      const hash = window.location.hash.slice(1); // Remove the #
+      if (hash && sectionIds.includes(hash)) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            // Scroll so the top of the section is at the top of the viewport
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Alternative: Center the section in the viewport
+            // element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            setActiveSection(hash);
+          }
+        }, 100);
+      }
+      hasScrolledToInitialHash.current = true;
+    }
+
     // Clean up previous observer
     if (observerRef.current) {
       observerRef.current.disconnect();
@@ -81,4 +103,45 @@ export function useSectionObserver(sectionIds: string[]) {
   }, [sectionIds, activeSection]);
 
   return activeSection;
+}
+
+// Export a utility function for menu components to use for scrolling
+export function scrollToSection(sectionId: string, options?: { 
+  behavior?: 'smooth' | 'auto';
+  block?: 'start' | 'center' | 'end' | 'nearest';
+  retryCount?: number;
+  retryDelay?: number;
+}) {
+  const {
+    behavior = 'smooth',
+    block = 'start',
+    retryCount = 5,
+    retryDelay = 100
+  } = options || {};
+
+  let attempts = 0;
+
+  const tryScroll = () => {
+    const element = document.getElementById(sectionId);
+    
+    if (element) {
+      element.scrollIntoView({ behavior, block });
+      
+      // Update URL hash
+      window.history.pushState(null, '', `#${sectionId}`);
+      return true;
+    }
+    
+    // Retry if element not found and we haven't exceeded retry count
+    if (attempts < retryCount) {
+      attempts++;
+      setTimeout(tryScroll, retryDelay);
+    } else {
+      console.warn(`Could not find section with id: ${sectionId}`);
+    }
+    
+    return false;
+  };
+
+  return tryScroll();
 }
