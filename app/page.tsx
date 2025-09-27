@@ -5,6 +5,8 @@ import Sponsor from './home/sponsor/sponsor';
 import Resources from './home/resources/resources';
 import FAQ from './home/faq/faq';
 import Contact from './home/contact/contact';
+export { metadata } from './metadata';
+
 
 export default function HomePage() {
   const sectionIds = ['hero', 'sponsor', 'resources', 'faq', 'contact'];

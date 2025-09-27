@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './page.module.css';
+import { metadata } from './metadata';
+export { metadata };
 
 export default function PrivacyPage() {
   return (

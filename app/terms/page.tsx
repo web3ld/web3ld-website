@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './page.module.css';
+export { metadata } from './metadata';
 
 export default function TermsPage() {
   return (
