@@ -1,0 +1,45 @@
+.container {
+  margin: 0 auto;
+  text-align: left;
+  width: 100%;
+  max-width: 900px;
+  font-family: var(--primary-font);
+  /* Text color variables; variant classes pick these */
+  --txt-heading: var(--green);
+  --txt-body: var(--white);
+}
+
+/* Variants for text component */
+.variantPurple {
+  --txt-heading: var(--green);   /* purple variant: green heading */
+  --txt-body: var(--white);
+}
+
+.variantGreen {
+  --txt-heading: var(--yellow);  /* green variant: yellow heading for contrast */
+  --txt-body: var(--white);
+}
+
+/* NOTE:
+   We removed the separate "title" class. The component now only exposes
+   a single "heading" which uses the font-size and centering that the old
+   title used to have.
+*/
+.textHeading {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.125rem; /* same size as the old title used to be */
+  color: var(--txt-heading);
+  text-align: center; /* centered as requested */
+  font-weight: 600;
+}
+
+.textBody {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--txt-body);
+}
+
+.textBody + .textBody {
+  margin-top: 0.75rem;
+}

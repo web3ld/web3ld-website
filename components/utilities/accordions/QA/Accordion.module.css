@@ -1,0 +1,117 @@
+/* Theme tokens scoped via CSS variables; variant classes set these. */
+.accordionRoot {
+  --acc-bg: var(--tertiary);
+  --acc-border: var(--accent-border);
+  --acc-icon: var(--accent);
+  --acc-title: var(--white);
+
+  background: var(--acc-bg);
+  border: var(--acc-border);
+  border-radius: var(--container-corners);
+  overflow: hidden;
+  width: 100%;
+  box-shadow: var(--card-shadow);
+}
+
+/* Variants */
+.variantPurple {
+  --acc-bg: var(--tertiary);
+  --acc-border: var(--accent-border);
+  --acc-icon: var(--accent);
+  --acc-title: var(--white);
+}
+
+.variantGreen {
+  --acc-bg: var(--dark-green);
+  --acc-border: var(--green-border);
+  --acc-icon: var(--green-accent);
+  --acc-title: var(--white);
+}
+
+.accordionItem:not(:first-child) {
+  border-top: var(--acc-border);
+}
+
+.accordionHeader {
+  margin: 0;
+}
+
+.accordionTrigger {
+  all: unset;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  display: flex;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.headerWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding-right: 72px; /* space for icon */
+}
+
+.title {
+  font-family: var(--primary-font);
+  font-size: 1.25rem;
+  color: var(--acc-title);
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  max-width: 900px;
+  word-wrap: break-word;
+}
+
+.icon {
+  position: absolute;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+}
+
+.iconLine {
+  position: absolute;
+  width: 70%;
+  height: 2px;
+  background: var(--acc-icon);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 2px;
+}
+
+.iconLine:first-child { /* vertical bar of the plus */
+  transform: rotate(90deg);
+}
+
+.contentWrapper {
+  overflow: hidden;
+  padding: 0 1.25rem;
+  will-change: transform;
+  background: transparent; /* inherits parent bg */
+}
+
+.contentInner {
+  padding: 1rem 0 1.25rem 0;
+}
+
+/* Mobile tweaks */
+@media (max-width: 730px) {
+  .title {
+    font-size: 1.1rem;
+    padding: 0 18px;
+    max-width: calc(100% - 60px);
+  }
+  .icon {
+    right: 20px;
+    width: 32px;
+    height: 32px;
+  }
+  .headerWrapper {
+    padding-right: 56px;
+  }
+}
