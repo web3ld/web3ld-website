@@ -1,16 +1,129 @@
 /* app/home/resources/resources.module.css */
+
 .section {
-  min-height: 90vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: var(--primary);
-  border-bottom: 2px solid var(--accent);
+  padding: 40px 16px;
+  background: var(--dark-green);
 }
 
-.content {
+.inner {
+  width: 100%;
+  max-width: 1000px; /* desktop max width as requested */
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0 0 20px 0;
   text-align: center;
-  color: var(--white);
-  font-family: var(--primary-font);
-  font-size: 1.8rem;
+  color: var(--green);
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+/* wrapper: dark-green background, rounded corners */
+.wrapper {
+  position: relative;
+  background: var(--dark-green);
+  border: none;
+  border-radius: var(--container-corners);
+
+  /* default mobile vertical padding; side padding handled per-breakpoint */
+  padding: 20px 24px;
+}
+
+/* horizontal-only scroller */
+.track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 400px;   /* card width */
+  grid-template-rows: 300px;  /* MOBILE: single row */
+  gap: 0 16px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  -webkit-overflow-scrolling: touch;
+
+  /* keep strong snap on mobile */
+  scroll-snap-type: x mandatory;
+  /* make snap land with the same side spacing as wrapper on mobile */
+  scroll-padding-inline: 24px;
+
+  /* mobile: give side breathing room and add bottom padding so cards don't touch the scrollbar */
+  padding: 0 24px 16px;
+}
+
+/* snap each card */
+.track > * {
+  scroll-snap-align: start;
+}
+
+/* custom scrollbar styling (WebKit) */
+.track::-webkit-scrollbar {
+  height: 12px;
+}
+.track::-webkit-scrollbar-track {
+  background: var(--dark-green); /* same as wrapper bg */
+  border-radius: 999px;
+}
+.track::-webkit-scrollbar-thumb {
+  background: var(--green-accent);
+  border-radius: 999px;
+  border: 3px solid var(--dark-green); /* creates the “padded” look */
+}
+
+/* gradient fades only on desktop (keeps mobile clean) */
+.fadeLeft,
+.fadeRight {
+  display: none;
+}
+
+/* Desktop: two rows, proportional distribution, extra L/R padding, and NO snap */
+@media (min-width: 1024px) {
+  .wrapper {
+    /* increase horizontal padding so the first/last cards aren't under the fades */
+    padding: 20px 88px;
+  }
+
+  .track {
+    /* TWO ROWS on desktop, still horizontal scroll */
+    grid-template-rows: repeat(2, 300px);
+    gap: 24px 24px; /* row-gap 24px, column-gap 24px */
+    padding: 0;     /* wrapper handles the side space */
+
+    /* ensure only the bottom padding differs (added below) */
+    /* disable snapping on desktop for smooth wheel/trackpad scrolling */
+    scroll-snap-type: none;
+    /* still define padding so if you re-enable snap later it lands right */
+    scroll-padding-inline: 88px;
+
+    /* ONLY ADD: bottom breathing room so the bottom row isn't flush with the scrollbar */
+    padding-bottom: 16px;
+  }
+
+  .fadeLeft,
+  .fadeRight {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 64px; /* fade width */
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .fadeLeft {
+    left: 0;
+    background: linear-gradient(to right, var(--dark-green) 0%, rgba(0,0,0,0) 100%);
+    border-top-left-radius: var(--container-corners);
+    border-bottom-left-radius: var(--container-corners);
+  }
+
+  .fadeRight {
+    right: 0;
+    background: linear-gradient(to left, var(--dark-green) 0%, rgba(0,0,0,0) 100%);
+    border-top-right-radius: var(--container-corners);
+    border-bottom-right-radius: var(--container-corners);
+  }
 }

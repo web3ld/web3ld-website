@@ -6,6 +6,7 @@
   --accent:#3e0062;
   --tertiary: #22012F;
   --green:#71e14d;
+  --green-accent: #0E3602;
   --dark-green: #002004;
   --yellow:#f7dc4e;
   --white:#ffffff;
@@ -14,13 +15,15 @@
   --primary-font: 'Roboto', sans-serif;
   --secondary-font: monospace;
 
-  --green-border: 2px solid var(--green);
+  --green-border: 2px solid var(--green-accent);
   --yellow-border: 2px solid var(--yellow);
   --accent-border: 2px solid var(--accent);
   --tertiary-border: 2px solid var(--tertiary);
 
   --button-corners: 200px;
   --container-corners: 10px;
+
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.20);
 }
 
 /* box-sizing reset */

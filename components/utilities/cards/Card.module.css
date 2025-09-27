@@ -1,0 +1,27 @@
+/* components/utilities/cards/Card.module.css */
+
+.card {
+  width: 400px;
+  height: 300px;
+
+  display: block;
+  overflow: auto; /* last resort if content spills */
+
+  border-radius: var(--container-corners);
+  box-shadow: var(--card-shadow);
+
+  padding: 16px;
+  background-clip: padding-box;
+}
+
+/* PURPLE variant */
+.purple {
+  background: var(--tertiary);
+  border: var(--accent-border);
+}
+
+/* GREEN variant */
+.green {
+  background: var(--dark-green);
+  border: var(--green-border);
+}
