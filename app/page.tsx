@@ -12,9 +12,9 @@ export default function HomePage() {
   return (
     <PageWrapper sectionIds={sectionIds}>
       <Hero />
-      <Sponsor />
       <Resources />
       <FAQ />
+      <Sponsor />
       <Contact />
     </PageWrapper>
   );

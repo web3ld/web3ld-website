@@ -1,16 +1,41 @@
 /* app/home/sponsor/sponsor.module.css */
+
 .section {
-  min-height: 80vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: var(--secondary);
+  padding: 40px 16px 100px 16px;
+  background: var(--primary);
+  border-top: 2px solid var(--accent);
   border-bottom: 2px solid var(--accent);
 }
 
-.content {
+.inner {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0 0 40px 0;
   text-align: center;
-  color: var(--white);
-  font-family: var(--primary-font);
-  font-size: 1.8rem;
+  color: var(--green);
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+/* vertical stack for logos/content */
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* single sponsor logo for now */
+.logo {
+  width: 400px;
+  max-width: 90%;
+  height: auto;
+  display: block; /* ensures margin auto centers if needed */
+  margin: 0 auto;
 }
