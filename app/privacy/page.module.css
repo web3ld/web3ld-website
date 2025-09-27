@@ -1,0 +1,88 @@
+/* app/privacy/page.module.css */
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 20px;
+  box-sizing: border-box;
+  color: var(--white);
+  font-family: Roboto, Arial;
+  line-height: 1.6;
+}
+
+/* Make all paragraph text white as requested */
+.container p {
+  color: var(--white);
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* H1 uses --green */
+.header h1 {
+  margin: 0 0 8px 0;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  color: var(--green);
+}
+
+.lead {
+  margin: 0;
+  color: inherit; /* inherits white from .container p */
+  font-size: 1rem;
+}
+
+.toc {
+  margin: 18px 0;
+  padding: 12px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.03);
+}
+
+.toc ul {
+  margin: 8px 0 0 0;
+  padding-left: 18px;
+}
+
+/* Links should be green */
+.toc a,
+.article a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.article {
+  margin-top: 10px;
+}
+
+.section {
+  margin: 28px 0;
+}
+
+.section h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.25rem;
+  color: var(--green);
+}
+
+.section p {
+  margin: 0 0 12px 0;
+  color: inherit;
+}
+
+.footer {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Small screens: breakpoint changed to 730px as requested */
+@media (max-width: 730px) {
+  .container {
+    padding: 24px 16px;
+  }
+  .toc {
+    font-size: 0.95rem;
+  }
+}

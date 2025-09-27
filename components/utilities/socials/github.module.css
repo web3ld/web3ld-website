@@ -4,7 +4,7 @@
   display: inline-block;
   color: var(--green); /* start color */
   line-height: 0;
-  animation: githubColorCycle 8s infinite;
+  animation: githubColorCycle 6s infinite;
   animation-timing-function: linear; /* keeps the 1s fades consistent */
   -webkit-font-smoothing: antialiased;
 }
@@ -26,16 +26,16 @@
 }
 
 /* Keyframes:
-   - 0s  -> 3s  (0% -> 37.5%): hold green
-   - 3s  -> 4s  (37.5% -> 50%): fade to yellow (1s)
-   - 4s  -> 7s  (50% -> 87.5%): hold yellow
-   - 7s  -> 8s  (87.5% -> 100%): fade back to green (1s)
+   - 0s  -> 2s  (0% -> 33.33%): hold green
+   - 2s  -> 3s  (33.33% -> 50%): fade to yellow (1s)
+   - 3s  -> 5s  (50% -> 83.33%): hold yellow
+   - 5s  -> 6s  (83.33% -> 100%): fade back to green (1s)
 */
 @keyframes githubColorCycle {
   0%      { color: var(--green); }
-  37.5%   { color: var(--green); }
+  33.33%  { color: var(--green); }
   50%     { color: var(--yellow); }
-  87.5%   { color: var(--yellow); }
+  83.33%  { color: var(--yellow); }
   100%    { color: var(--green); }
 }
 

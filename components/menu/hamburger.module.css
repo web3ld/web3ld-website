@@ -1,0 +1,50 @@
+/* components/menu/hamburger.module.css */
+.hamburger {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+/* Desktop size */
+@media (min-width: 731px) {
+  .hamburger {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Focus styles for accessibility */
+.hamburger:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Hover effect */
+.hamburger:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+}
+
+.line {
+  stroke: var(--green);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke 0.5s ease;
+}
+
+/* When menu is open, lines turn yellow */
+.hamburger.open .line {
+  stroke: var(--yellow);
+}
