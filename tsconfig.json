@@ -18,7 +18,8 @@
     "paths": {
       "@/*": ["./*"],
       "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@config/*": ["app/config/*"]
     },
     "plugins": [
       {
