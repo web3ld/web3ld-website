@@ -1,0 +1,346 @@
+/* components/utilities/forms/contact/ContactForm.module.css */
+
+.formContainer {
+  max-width: 700px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  border-radius: var(--container-corners);
+  box-shadow: var(--card-shadow);
+  position: relative; /* keeps children (overlay) scoped to this container */
+}
+
+/* Green variant */
+.green {
+  background-color: var(--dark-green);
+  border: var(--green-border);
+}
+
+.green .input,
+.green .textarea {
+  background-color: var(--dark-green);
+  border: var(--green-border);
+  color: var(--white);
+}
+
+.green .input::placeholder,
+.green .textarea::placeholder {
+  color: #808080;
+}
+
+.green .submitButton:hover {
+  background-color: var(--green-accent);
+}
+
+.green .modal {
+  background-color: var(--dark-green);
+  border: var(--green-border);
+}
+
+.green .modalButton,
+.green .submitButton {
+  border: var(--green-border);
+}
+
+.green .modalButton:hover {
+  background-color: var(--green-accent);
+}
+
+/* Purple variant */
+.purple {
+  background-color: var(--tertiary);
+  border: var(--accent-border);
+}
+
+.purple .input,
+.purple .textarea {
+  background-color: var(--tertiary);
+  border: var(--accent-border);
+  color: var(--white);
+}
+
+.purple .input::placeholder,
+.purple .textarea::placeholder {
+  color: #808080;
+}
+
+.purple .submitButton:hover {
+  background-color: var(--accent);
+}
+
+.purple .modal {
+  background-color: var(--tertiary);
+  border: var(--accent-border);
+}
+
+.purple .modalButton,
+.purple .submitButton {
+  border: var(--accent-border);
+}
+
+.purple .modalButton:hover {
+  background-color: var(--accent);
+}
+
+/* Form styles */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.label {
+  color: var(--white);
+  font-family: var(--primary-font);
+  font-size: 1rem;
+  text-align: left;
+}
+
+.input,
+.textarea {
+  width: 95%;
+  padding: 0.75rem 1rem;
+  font-family: var(--primary-font);
+  font-size: 1rem;
+
+  /* prevent choppy focus animation: don't transition outline/box-shadow */
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  outline: none;
+}
+
+.input:focus,
+.textarea:focus {
+  /* static focus ring shadow (non-animated) */
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+/* strong white keyboard focus for all fields & buttons */
+.input:focus-visible,
+.textarea:focus-visible,
+.submitButton:focus-visible,
+.modalButton:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 3px;
+
+  /* ensure no animation on focus indicator */
+  transition: none;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.error {
+  color: var(--yellow);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  font-family: var(--primary-font);
+}
+
+.charCount {
+  color: var(--white);
+  opacity: 0.7;
+  font-size: 0.875rem;
+  text-align: right;
+  margin-top: 0.25rem;
+  font-family: var(--secondary-font);
+}
+
+.turnstileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.submitButton {
+  padding: 1rem 2rem;
+  border-radius: var(--button-corners);
+  background-color: transparent;
+  color: var(--white);
+  border: 2px solid var(--white); /* overridden by variant rules above */
+  font-family: var(--primary-font);
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  /* keep hover/transform smooth, but avoid animating outline */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  width: fit-content;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal styles */
+/* Overlay is scoped to the form container instead of full page */
+.modalOverlay {
+  position: absolute;   /* scoped within .formContainer */
+  inset: 0;             /* fill the container bounds */
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;           /* above form content, below global elements */
+  animation: fadeIn 0.5s ease;
+}
+
+.modal {
+  max-width: 500px;
+  width: 90%;
+  padding: 2rem;
+  border-radius: var(--container-corners);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.5s ease;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.modalTitle {
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  font-family: var(--primary-font);
+}
+
+.modalMessage {
+  color: var(--white);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  font-family: var(--primary-font);
+}
+
+.modalButton {
+  padding: 0.75rem 2rem;
+  border-radius: var(--button-corners);
+  background-color: transparent;
+  color: var(--white);
+  border: 2px solid var(--white); /* overridden by variant rules above */
+  font-family: var(--primary-font);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  /* keep hover smooth; outline isn't transitioned */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.modalButton:hover {
+  transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.fadeIn { animation: fadeIn 0.5s ease forwards; }
+.fadeOut { animation: fadeOut 0.5s ease forwards; }
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .formContainer {
+    width: 95%;
+    padding: 1.5rem 1rem;
+  }
+  
+  .input,
+  .textarea {
+    width: 100%;
+  }
+}
+
+/* --------------------------
+   Autofill stylings — preserve variant backgrounds & white text
+   Works for Chrome/Blink + includes internal selector
+   -------------------------- */
+
+/* Green variant autofill */
+.green .input:-webkit-autofill,
+.green .input:-webkit-autofill:hover,
+.green .input:-webkit-autofill:focus,
+.green .textarea:-webkit-autofill,
+.green .textarea:-webkit-autofill:hover,
+.green .textarea:-webkit-autofill:focus,
+.green .input:-internal-autofill-selected,
+.green .textarea:-internal-autofill-selected {
+  /* force the same background as the variant using a huge inset box-shadow */
+  -webkit-box-shadow: 0 0 0px 1000px var(--dark-green) inset !important;
+          box-shadow: 0 0 0px 1000px var(--dark-green) inset !important;
+
+  /* remove any autofill background-image */
+  background-image: none !important;
+
+  /* preserve text color */
+  -webkit-text-fill-color: var(--white) !important;
+          color: var(--white) !important;
+
+  /* keep caret visible */
+  caret-color: var(--white) !important;
+
+  /* prevent flashing/animated transitions on autofill */
+  transition: background-color 0s ease 0s, color 0s ease 0s !important;
+
+  /* ensure background covers padding */
+  background-clip: padding-box;
+}
+
+/* Purple variant autofill */
+.purple .input:-webkit-autofill,
+.purple .input:-webkit-autofill:hover,
+.purple .input:-webkit-autofill:focus,
+.purple .textarea:-webkit-autofill,
+.purple .textarea:-webkit-autofill:hover,
+.purple .textarea:-webkit-autofill:focus,
+.purple .input:-internal-autofill-selected,
+.purple .textarea:-internal-autofill-selected {
+  -webkit-box-shadow: 0 0 0px 1000px var(--tertiary) inset !important;
+          box-shadow: 0 0 0px 1000px var(--tertiary) inset !important;
+
+  background-image: none !important;
+  -webkit-text-fill-color: var(--white) !important;
+          color: var(--white) !important;
+  caret-color: var(--white) !important;
+  transition: background-color 0s ease 0s, color 0s ease 0s !important;
+  background-clip: padding-box;
+}
+
+/* Optional: generic fallback for any other inputs in the container */
+.formContainer .input:-webkit-autofill,
+.formContainer .textarea:-webkit-autofill,
+.formContainer .input:-internal-autofill-selected,
+.formContainer .textarea:-internal-autofill-selected {
+  background-image: none !important;
+  -webkit-text-fill-color: var(--white) !important;
+  transition: background-color 0s ease 0s, color 0s ease 0s !important;
+}

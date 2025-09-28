@@ -1,17 +1,66 @@
 /* app/home/contact/contact.module.css */
-.section {
-  min-height: 60vh;
+
+.contactSection {
+  width: 100%;
+  padding: 4rem 0;
+  background-color: var(--primary);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--primary);
-  border-bottom: 2px solid var(--accent);
-  margin-bottom: 2rem; /* Space before footer */
 }
 
-.content {
-  text-align: center;
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.heading {
   color: var(--white);
   font-family: var(--primary-font);
-  font-size: 1.8rem;
+  font-size: 28px;
+  text-align: center;
+  margin: 0;
+}
+
+.blurb {
+  color: var(--white);
+  font-family: var(--primary-font);
+  font-size: 1.2rem;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+  opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .heading {
+    font-size: 2.5rem;
+  }
+  
+  .blurb {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactSection {
+    padding: 3rem 0;
+  }
+  
+  .heading {
+    font-size: 2rem;
+  }
+  
+  .blurb {
+    font-size: 1rem;
+  }
 }

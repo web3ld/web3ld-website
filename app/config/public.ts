@@ -1,39 +1,33 @@
 // app/config/public.ts
 import { z } from 'zod';
+import { runtime } from './node';
 
-/**
- * Specify your client-side environment variables schema here.
- * This way you can ensure the app isn't built with invalid env vars.
- * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
- */
+export { runtime };
+
+/*Specify client-side environment variables schema here. */
+
 const envSchema = z.object({
-  NEXT_PUBLIC_BASE_URL: z
-    .string()
-    .optional()
-    .default('https://web3ld.org'),
+  NEXT_PUBLIC_BASE_URL: z.string().optional().default('https://web3ld.org'),
   NEXT_PUBLIC_GITHUB_REPO: z
     .string()
     .optional()
     .default('https://github.com/web3ld/web3ld-website'),
+  NEXT_PUBLIC_CLOUDFLARE_WORKER_URL: z.string().optional().default(''),
+  // Turnstile site key lives in public config
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().optional().default(''),
 });
 
-/**
- * You can't destruct `process.env` as a regular object in the Next.js
- * runtime, so you have to do it manually here.
- */
 const envVars = {
   NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   NEXT_PUBLIC_GITHUB_REPO: process.env.NEXT_PUBLIC_GITHUB_REPO,
+  NEXT_PUBLIC_CLOUDFLARE_WORKER_URL: process.env.NEXT_PUBLIC_CLOUDFLARE_WORKER_URL,
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
 };
 
 // Validate the environment variables
 const parsedEnv = envSchema.safeParse(envVars);
-
 if (!parsedEnv.success) {
-  console.error(
-    '❌ Invalid environment variables:',
-    parsedEnv.error.flatten().fieldErrors
-  );
+  console.error('❌ Invalid environment variables:', parsedEnv.error.flatten().fieldErrors);
   throw new Error('Invalid environment variables');
 }
 
@@ -47,10 +41,10 @@ export const env = parsedEnv.data;
 export function getGithubEditUrl(pathname: string): string {
   const repo = env.NEXT_PUBLIC_GITHUB_REPO;
   const branch = 'master';
-  
+
   // Map the pathname to the actual file path
   let filePath: string;
-  
+
   if (pathname === '/') {
     filePath = 'app/page.tsx';
   } else {
@@ -59,9 +53,7 @@ export function getGithubEditUrl(pathname: string): string {
     // Check if it's likely a dynamic route, API route, or regular page
     filePath = `app/${cleanPath}/page.tsx`;
   }
-  
-  // Construct the GitHub edit URL
-  // Format: https://github.com/[user]/[repo]/edit/[branch]/[filepath]
+
   const repoPath = repo.replace('https://github.com/', '');
   return `https://github.com/${repoPath}/edit/${branch}/${filePath}`;
 }
