@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './page.module.css';
 import { metadata } from './metadata';
+import { loadJsonLdScripts } from '@/lib/jsonld/loadJsonFromIndex';
+import privacyJsonLdData from './jsonld';
 export { metadata };
 
 export default function PrivacyPage() {
@@ -80,6 +82,7 @@ export default function PrivacyPage() {
       <footer className={styles.footer}>
         <small>Last updated: <time dateTime="2025-09-27">September 27, 2025</time></small>
       </footer>
+      {loadJsonLdScripts(privacyJsonLdData, 'privacy-jsonld')}
     </main>
   );
 }

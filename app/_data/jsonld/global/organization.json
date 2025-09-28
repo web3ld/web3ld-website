@@ -1,0 +1,51 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://web3ld.org/#organization",
+  "name": "Web3LD",
+  "url": "https://web3ld.org/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://web3ld.org/public/images/logos/wordmark.png"
+  },
+  "sameAs": [
+    "https://github.com/web3ld"
+  ],
+  "parentOrganization": {
+    "@type": "Organization",
+    "@id": "https://ritovision.com/#organization",
+    "name": "RitoVision",
+    "url": "https://ritovision.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ritovision.com/public/images/brand/wordmark-logomark.png"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Rito",
+      "url": "https://ritovision.com/about",
+      "image": "https://ritovision.com/public/images/home/hero/rito-picture1.png",
+      "sameAs": [
+        "https://www.instagram.com/ritorhymes",
+        "https://www.threads.net/ritorhymes",
+        "https://www.x.com/rito_rhymes",
+        "https://www.linkedin.com/in/rito-matt-j-pellerito-36779084",
+        "https://www.github.com/ritorhymes",
+        "https://www.reddit.com/user/ritorhymes",
+        "https://www.ritovision.com/about",
+        "https://www.ritography.com/about",
+        "https://www.ritorhymes.com/about",
+        "https://www.williamentriken.net/about",
+        "https://www.carolinevreeland.com/about",
+        "https://facebook.com/ritorhymes",
+        "https://www.youtube.com/@ritorhymes",
+        "https://open.spotify.com/artist/03iaQJsc1704Mbj25dHp4Q",
+        "https://music.apple.com/us/artist/rito-rhymes/1633458672",
+        "https://stockhead.com.au/cryptocurrency/bitcoin-is-the-gangsta-rap-of-the-tech-world-putting-the-verse-in-metaverse-with-crypto-rapper-rito-rhymes",
+        "https://screenrant.com/cod-warzone-riot-shield-disappear-glitch-rap-video",
+        "https://hackernoon.com/about/ritorhymes",
+        "https://wabcradio.com/episode/rito-rhymes-rapper-and-crypto-nerd-6-8-22"
+      ]
+    }
+  }
+}

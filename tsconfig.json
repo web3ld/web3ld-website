@@ -19,7 +19,8 @@
       "@/*": ["./*"],
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
-      "@config/*": ["app/config/*"]
+      "@config/*": ["app/config/*"],
+      "@lib/*": ["lib/*"]
     },
     "plugins": [
       {

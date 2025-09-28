@@ -1,0 +1,10 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://web3ld.org/#website",
+  "url": "https://web3ld.org/",
+  "name": "Web3LD",
+  "publisher": {
+    "@id": "https://web3ld.org/#organization"
+  }
+}

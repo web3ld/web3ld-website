@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './page.module.css';
+import { loadJsonLdScripts } from '@/lib/jsonld/loadJsonFromIndex';
+import termsJsonLdData from './jsonld';
 export { metadata } from './metadata';
 
 export default function TermsPage() {
@@ -71,6 +73,7 @@ export default function TermsPage() {
       <footer className={styles.footer}>
         <small>Last updated: <time dateTime="2025-09-27">September 27, 2025</time></small>
       </footer>
+      {loadJsonLdScripts(termsJsonLdData, 'terms-jsonld')}
     </main>
   );
 }

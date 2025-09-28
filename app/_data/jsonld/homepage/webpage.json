@@ -1,0 +1,20 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://web3ld.org/#webpage",
+  "name": "Web3LD — Open Source Linked Data for Web3",
+  "url": "https://web3ld.org/",
+  "description": "An open source initiative for building the semantic web through Linked Data.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://web3ld.org/#website"
+  },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://web3ld.org/public/images/logos/wordmark.png"
+  },
+  "publisher": {
+    "@id": "https://web3ld.org/#organization"
+  }
+}
