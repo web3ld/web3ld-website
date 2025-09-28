@@ -59,6 +59,10 @@ p{
   color:inherit;
 }
 
+a {
+    color: var(--green);;
+}
+
 /* Desktop >= 731px: static px sizes */
 @media (min-width:731px){
   h1{font-size:48px;}
