@@ -4,6 +4,7 @@
 import React from 'react';
 import styles from './resources.module.css';
 import { Card } from '@components/utilities/cards/Card';
+import { SchemaValidatorCard, W3CCard, SchemaDocsCard, JsonLdLearnCard, SemanticWebCard, AIsearchCard } from '.'; // barrel import
 
 export default function ResourcesSection() {
   return (
@@ -12,16 +13,32 @@ export default function ResourcesSection() {
         <h2 className={styles.title}>Resources</h2>
 
         <div className={styles.wrapper}>
-          {/* Horizontal-only track (single row at all sizes) */}
           <div className={styles.track}>
-            <Card variant="green" />
-            <Card variant="purple" />
-            <Card variant="green" />
-            <Card variant="purple" />
-            <Card variant="green" />
-            <Card variant="purple" />
-            <Card variant="green" />
-            <Card variant="purple" />
+            <Card variant="green">
+              <SchemaValidatorCard />
+            </Card>
+
+            <Card variant="purple">
+              <W3CCard />
+            </Card>
+
+            <Card variant="purple">
+              <SchemaDocsCard />
+            </Card>
+
+            <Card variant="green">
+              <JsonLdLearnCard />
+            </Card>
+
+
+          <Card variant="purple">
+             <SemanticWebCard />
+          </Card>
+
+            <Card variant="green">
+              <AIsearchCard />
+            </Card>
+
           </div>
         </div>
       </div>

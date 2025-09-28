@@ -1,0 +1,64 @@
+/* app/home/resources/SchemaDocsCard.module.css */
+
+.link {
+  position: relative; /* for absolutely-positioned bg icon */
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* per your request */
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit; /* inherit white from purple Card */
+  cursor: pointer;
+  border-radius: calc(var(--container-corners) - 4px);
+  outline: none;
+  text-align: left;
+  overflow: hidden; /* ensure large icon doesn't overflow rounded corners */
+}
+
+.link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.18);
+}
+
+/* background decorative icon centered and behind content */
+.bgIcon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  opacity: 0.2; /* 20% visible */
+  color: #ffffff; /* fill uses currentColor */
+  pointer-events: none; /* don't block clicks */
+  z-index: 0;
+}
+
+/* content sits above the bg icon */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 400; /* requested */
+  color: #fff;
+}
+
+.body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #fff;
+  font-weight: 400;
+  opacity: 0.95;
+}

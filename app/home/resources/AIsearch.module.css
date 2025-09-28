@@ -1,0 +1,40 @@
+/* app/home/resources/AIsearch.module.css */
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;            /* card variant provides bg/border; text stays white */
+  cursor: pointer;
+  border-radius: calc(var(--container-corners) - 4px);
+  outline: none;
+  text-align: center;
+  overflow: hidden;
+}
+
+.link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.18);
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 400;
+  color: #fff;
+}
+
+.emoji {
+  display: block;
+  line-height: 1;
+  font-size: 140px;         
+  opacity: 0.5;              
+  user-select: none;
+  pointer-events: none;
+}

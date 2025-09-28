@@ -89,3 +89,46 @@
     scroll-padding-inline: 88px;
   }
 }
+
+/* =============== Validator CTA (inside first green Card) =============== */
+
+.validatorCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  text-decoration: none;
+  cursor: pointer;            /* pointer on hover as requested */
+  border-radius: calc(var(--container-corners) - 4px);
+  outline: none;
+}
+
+.validatorCard:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+}
+
+.validatorIcon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+}
+
+.validatorText {
+  display: inline-flex;
+  flex-direction: column;
+  color: #fff; /* white text as requested */
+}
+
+.validatorHeading {
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.validatorSub {
+  line-height: 1.4;
+  opacity: 0.95;
+}
