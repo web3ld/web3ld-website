@@ -9,9 +9,10 @@
     "jsonld:generate": "tsx scripts/jsonld/generate-index.ts"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.2.2",
+    "@hookform/resolvers": "^3.10.0",
     "@marsidev/react-turnstile": "^1.3.1",
     "@radix-ui/react-accordion": "^1.2.12",
+    "contact-form-worker": "workspace:*",
     "framer-motion": "^12.23.22",
     "next": "15.5.4",
     "react": "19.1.0",
@@ -25,7 +26,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tsx": "^4.20.6",
-    "typescript": "^5",
-    "wrangler": "^4.40.2"
+    "typescript": "^5"
   }
 }
