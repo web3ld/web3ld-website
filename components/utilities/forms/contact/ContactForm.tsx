@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema, ContactFormData } from './contactSchema';
-import Turnstile from './Turnstile';
+import { Turnstile } from '@marsidev/react-turnstile';
 import styles from './ContactForm.module.css';
-import { env } from '@config/public';
+import { env, runtime } from '@config/public';
 
 interface ContactFormProps {
   variant?: 'green' | 'purple';
@@ -21,7 +21,7 @@ interface ModalState {
 
 export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileKey, setTurnstileKey] = useState(0); // Key for resetting widget
   const [modal, setModal] = useState<ModalState>({
     isOpen: false,
     type: 'success',
@@ -34,7 +34,7 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
     formState: { errors },
     reset,
     setValue,
-    watch, // <-- for char count (fixes TS error)
+    watch,
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -49,16 +49,6 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
 
   const messageValue = watch('message') || '';
 
-  const handleTurnstileVerify = (token: string) => {
-    setTurnstileToken(token);
-    setValue('turnstileToken', token);
-  };
-
-  const handleTurnstileExpire = () => {
-    setTurnstileToken('');
-    setValue('turnstileToken', '');
-  };
-
   const showModal = (type: 'success' | 'error' | 'failure', message: string) => {
     setModal({ isOpen: true, type, message });
   };
@@ -68,7 +58,7 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
   };
 
   const onSubmit = async (data: ContactFormData) => {
-    if (!turnstileToken) {
+    if (!data.turnstileToken) {
       showModal('error', 'Please complete the verification');
       return;
     }
@@ -81,10 +71,7 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...data,
-          turnstileToken,
-        }),
+        body: JSON.stringify(data),
       });
 
       const result = await response.json();
@@ -92,7 +79,9 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
       if (response.ok) {
         showModal('success', "Thank you for your message! We'll get back to you soon.");
         reset();
-        setTurnstileToken('');
+        setValue('turnstileToken', '');
+        // Force Turnstile widget to reset by changing its key
+        setTurnstileKey(prev => prev + 1);
       } else {
         showModal('failure', result.error || 'Failed to send message. Please try again.');
       }
@@ -105,6 +94,11 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
   };
 
   const variantClass = variant === 'green' ? styles.green : styles.purple;
+  
+  // Use test key in dev/test, production key in prod
+  const siteKey = (runtime.isDev || runtime.isTest)
+    ? '1x00000000000000000000AA'
+    : env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
 
   return (
     <div className={`${styles.formContainer} ${variantClass}`}>
@@ -227,9 +221,19 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
 
         <div className={styles.turnstileContainer}>
           <Turnstile
-            onVerify={handleTurnstileVerify}
-            onExpire={handleTurnstileExpire}
-            theme="dark"
+            key={turnstileKey}
+            siteKey={siteKey}
+            onSuccess={(token) => setValue('turnstileToken', token)}
+            onExpire={() => setValue('turnstileToken', '')}
+            onError={() => {
+              setValue('turnstileToken', '');
+              console.error('Turnstile verification error');
+            }}
+            options={{
+              theme: 'dark',
+              size: 'normal',
+              appearance: 'always',
+            }}
           />
           {errors.turnstileToken && (
             <span className={styles.error}>
@@ -248,7 +252,7 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
         </button>
       </form>
 
-      {/* Modal (scoped to container) */}
+      {/* Modal */}
       {modal.isOpen && (
         <div
           className={`${styles.modalOverlay} ${modal.isOpen ? styles.fadeIn : styles.fadeOut}`}

@@ -41,3 +41,12 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# cloudflare worker
+/cloudflare-worker/node_modules
+/cloudflare-worker/.dev.vars
+/cloudflare-worker/.dev.vars*
+/cloudflare-worker/.wrangler
+/cloudflare-worker/upload-secrets.sh
+
+

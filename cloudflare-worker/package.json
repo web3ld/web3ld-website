@@ -1,0 +1,19 @@
+{
+  "name": "contact-form-worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev --env development",
+    "deploy": "wrangler deploy --env production && pnpm upload:secrets",
+    "upload:secrets": "tsx upload-secrets.ts",
+    "tail": "wrangler tail",
+    "tail:prod": "pnpm wrangler tail --env production",
+    "types": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.0.0",
+    "wrangler": "^4.40.2"
+  }
+}

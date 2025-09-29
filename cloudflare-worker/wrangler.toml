@@ -1,0 +1,28 @@
+name = "contact-form-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[[durable_objects.bindings]]
+name = "RATE_LIMITER"
+class_name = "RateLimiter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RateLimiter"]
+
+# Development environment
+[env.development]
+name = "contact-form-worker-dev"
+vars = { BREVO_API_KEY = "dev", TURNSTILE_SECRET_KEY = "dev", SENDER_EMAIL = "dev@example.com", RECEIVER_EMAIL = "dev@example.com" }
+
+[[env.development.durable_objects.bindings]]
+name = "RATE_LIMITER"
+class_name = "RateLimiter"
+
+# Production environment  
+[env.production]
+name = "contact-form-worker-production"
+
+[[env.production.durable_objects.bindings]]
+name = "RATE_LIMITER"
+class_name = "RateLimiter"
