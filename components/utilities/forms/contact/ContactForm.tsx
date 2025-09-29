@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { contactFormSchema, ContactFormData } from './contactSchema';
+import { ContactFormBaseSchema as contactFormSchema, type ContactFormData } from '@cloudflare-worker/contact/schemas';
 import { Turnstile } from '@marsidev/react-turnstile';
 import styles from './ContactForm.module.css';
 import { env, runtime } from '@config/public';

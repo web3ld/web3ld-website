@@ -33,8 +33,8 @@ importers:
         specifier: ^7.63.0
         version: 7.63.0(react@19.1.0)
       zod:
-        specifier: ^4.1.11
-        version: 4.1.11
+        specifier: ^3.22.3
+        version: 3.22.3
     devDependencies:
       '@svgr/webpack':
         specifier: ^8.1.0
@@ -2095,9 +2095,6 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
-  zod@4.1.11:
-    resolution: {integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==}
-
 snapshots:
 
   '@babel/code-frame@7.27.1':
@@ -4096,5 +4093,3 @@ snapshots:
       youch-core: 0.3.3
 
   zod@3.22.3: {}
-
-  zod@4.1.11: {}

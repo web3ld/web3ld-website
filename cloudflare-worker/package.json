@@ -3,17 +3,35 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "wrangler dev --env development",
-    "deploy": "wrangler deploy --env production && pnpm upload:secrets",
-    "upload:secrets": "tsx upload-secrets.ts",
-    "tail": "wrangler tail",
-    "tail:prod": "pnpm wrangler tail --env production",
-    "types": "wrangler types"
+    "dev:contact": "wrangler dev src/contact/index.ts",
+    "deploy:contact": "wrangler deploy --env production src/contact/index.ts",
+    "deploy:contact:secrets": "wrangler deploy --env production src/contact/index.ts && tsx scripts/contact/upload-secrets.ts",
+    "upload:secrets": "tsx scripts/contact/upload-secrets.ts",
+    "generate:openapi": "tsx scripts/generate-openapi.ts",
+    "tail:contact": "wrangler tail contact-form-worker-production",
+    "types": "wrangler types",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "test:prod": "cross-env TEST_URL=https://contact-form-worker-production.matthewjpellerito.workers.dev vitest run",
+    "test:dev": "cross-env TEST_URL=http://localhost:8787 vitest run"
   },
   "devDependencies": {
+    "@asteasolutions/zod-to-openapi": "^7.3.4",
     "@cloudflare/workers-types": "^4.20241127.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^24.5.2",
+    "@types/supertest": "^6.0.3",
+    "cross-env": "^10.0.0",
+    "js-yaml": "^4.1.0",
+    "supertest": "^7.1.4",
     "tsx": "^4.20.6",
     "typescript": "^5.0.0",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4",
     "wrangler": "^4.40.2"
+  },
+  "dependencies": {
+    "zod": "^3.22.3"
   }
 }

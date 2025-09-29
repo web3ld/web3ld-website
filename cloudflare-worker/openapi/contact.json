@@ -1,0 +1,230 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Web3LD Contact API",
+    "version": "1.0.0",
+    "description": "Contact form submission API with rate limiting and email verification",
+    "contact": {
+      "name": "Web3LD Support",
+      "email": "support@web3ld.org",
+      "url": "https://web3ld.org"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://contact-form-worker.web3ld.workers.dev",
+      "description": "Production server"
+    },
+    {
+      "url": "http://localhost:8787",
+      "description": "Local development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contact",
+      "description": "Contact form operations"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Message sent successfully"
+          },
+          "messageId": {
+            "type": "string",
+            "example": "msg_123"
+          },
+          "remaining": {
+            "type": "number",
+            "description": "Remaining submissions in 24h window",
+            "example": 2
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Verification failed"
+          },
+          "details": {
+            "description": "Additional error details"
+          },
+          "remaining": {
+            "type": "number",
+            "example": 0
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "ContactRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "description": "Name or alias of the sender",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 50,
+            "format": "email",
+            "description": "Contact email address",
+            "example": "john@example.com"
+          },
+          "organization": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Organization or project name",
+            "example": "Acme Corp"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Title or role",
+            "example": "CTO"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 3000,
+            "description": "Message content",
+            "example": "I would like to discuss..."
+          },
+          "turnstileToken": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Cloudflare Turnstile verification token",
+            "example": "token_xyz123"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "message",
+          "turnstileToken"
+        ]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/contact": {
+      "post": {
+        "summary": "Submit contact form",
+        "description": "Submit a contact form with Turnstile verification and rate limiting",
+        "tags": [
+          "Contact"
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Contact form submission data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - validation or verification failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "Too many requests. Please try again after 24 hours.",
+                  "remaining": 0
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "summary": "CORS preflight",
+        "description": "Handle CORS preflight requests",
+        "tags": [
+          "Contact"
+        ],
+        "responses": {
+          "204": {
+            "description": "No content",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Allowed origin"
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Allowed methods"
+              },
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Allowed headers"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {}
+}

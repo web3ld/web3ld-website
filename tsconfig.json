@@ -20,7 +20,8 @@
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@config/*": ["app/config/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@cloudflare-worker/*": ["cloudflare-worker/src/*"]
     },
     "plugins": [
       {

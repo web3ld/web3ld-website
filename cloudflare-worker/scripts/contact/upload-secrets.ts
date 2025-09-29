@@ -1,4 +1,4 @@
-// upload-secrets.ts
+// scripts/upload-secrets.ts
 import { execSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -9,6 +9,15 @@ interface EnvVars {
 
 const ENV_FILE = ".dev.vars.production";
 const ENVIRONMENT = "production";
+
+const REQUIRED_SECRETS = [
+  "BREVO_API_KEY",
+  "TURNSTILE_SECRET_KEY", 
+  "SENDER_EMAIL",
+  "RECEIVER_EMAIL",
+];
+
+const OPTIONAL_SECRETS = ["BACKDOOR_CONTACT_KEY"];
 
 function loadEnvVars(): EnvVars {
   const envPath = path.resolve(process.cwd(), ENV_FILE);
@@ -35,38 +44,55 @@ function loadEnvVars(): EnvVars {
   return envVars;
 }
 
-async function uploadSecrets() {
-  console.log(`📤 Uploading secrets from ${ENV_FILE} to ${ENVIRONMENT} environment...\n`);
-
-  const envVars = loadEnvVars();
-  const secrets = Object.entries(envVars);
-
-  if (secrets.length === 0) {
-    console.error("❌ No secrets found in file");
-    return;
+function validateSecrets(envVars: EnvVars): void {
+  const missing = REQUIRED_SECRETS.filter(key => !envVars[key]);
+  
+  if (missing.length > 0) {
+    console.error("❌ Missing required secrets:");
+    missing.forEach(key => console.error(`   - ${key}`));
+    process.exit(1);
   }
 
+  console.log("✅ All required secrets present");
+  
+  OPTIONAL_SECRETS.forEach(key => {
+    if (envVars[key]) {
+      console.log(`📌 Optional secret ${key} is configured`);
+    }
+  });
+}
+
+async function uploadSecrets() {
+  console.log(`📤 Uploading secrets to ${ENVIRONMENT} environment...\n`);
+
+  const envVars = loadEnvVars();
+  validateSecrets(envVars);
+  
+  const secrets = Object.entries(envVars);
   let successCount = 0;
   let failCount = 0;
 
   for (const [key, value] of secrets) {
     console.log(`Uploading ${key}...`);
     try {
-      // NOTE: execSync.shell must be a *string* for type safety
       const shell = process.platform === "win32" ? "cmd.exe" : "/bin/sh";
+      const maskedValue = key.includes("KEY") || key.includes("SECRET") 
+        ? `${value.substring(0, 4)}...` 
+        : value;
+      
+      console.log(`   Value: ${maskedValue}`);
 
-      execSync(`echo "${value}" | pnpm wrangler secret put ${key} --env ${ENVIRONMENT}`, {
-        stdio: "inherit",
-        shell, // ✅ fix TS2769: string, not boolean
+      // Use process.stdin to avoid shell escaping issues
+      execSync(`pnpm wrangler secret put ${key} --env ${ENVIRONMENT}`, {
+        input: value,
+        stdio: ["pipe", "inherit", "inherit"],
+        shell,
       });
 
-      console.log(`✅ ${key} uploaded successfully`);
+      console.log(`✅ ${key} uploaded`);
       successCount++;
     } catch (error) {
       console.error(`❌ Failed to upload ${key}`);
-      if (error instanceof Error) {
-        console.error(`   Error: ${error.message}`);
-      }
       failCount++;
     }
   }
