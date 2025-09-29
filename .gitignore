@@ -49,4 +49,6 @@ next-env.d.ts
 /cloudflare-worker/.wrangler
 /cloudflare-worker/upload-secrets.sh
 
-
+# Playwright
+/playwright-report
+/test-results

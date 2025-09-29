@@ -102,7 +102,7 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
 
   return (
     <div className={`${styles.formContainer} ${variantClass}`}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
         <div className={styles.formGroup}>
           <label htmlFor="name" className={styles.label}>
             Name / Alias *
