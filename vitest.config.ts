@@ -16,6 +16,18 @@ export default defineConfig({
     css: {
       modules: { classNameStrategy: 'stable' },
     },
+    // Exclude e2e tests (Playwright) and cloudflare-worker tests
+    exclude: [
+      'node_modules/',
+      'e2e/**',
+      'cloudflare-worker/**',
+      '**/*.spec.ts', // Playwright uses .spec.ts, your unit tests should use .test.ts
+      'test/',
+      '*.config.*',
+      '**/*.d.ts',
+      '**/*.stories.tsx',
+      '.next/',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
@@ -26,6 +38,8 @@ export default defineConfig({
         '**/*.d.ts',
         '**/*.stories.tsx',
         '.next/',
+        'e2e/**',
+        'cloudflare-worker/**',
       ],
     },
   },
