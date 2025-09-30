@@ -1,7 +1,7 @@
 name: Deploy to Vercel
 on:
   workflow_run:
-    workflows: ["Vitest Tests", "Playwright Tests"]
+    workflows: ["Lint", "Vitest Tests", "Playwright Tests"]
     types:
       - completed
     branches:

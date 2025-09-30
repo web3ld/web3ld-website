@@ -1,7 +1,7 @@
 // components/utilities/forms/contact/ContactForm.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactFormBaseSchema as contactFormSchema, type ContactFormData } from '@cloudflare-worker/contact/schemas';
@@ -56,6 +56,20 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
   const closeModal = () => {
     setModal(prev => ({ ...prev, isOpen: false }));
   };
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && modal.isOpen) {
+        closeModal();
+      }
+    };
+
+    if (modal.isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [modal.isOpen]);
 
   const onSubmit = async (data: ContactFormData) => {
     if (!data.turnstileToken) {
@@ -257,13 +271,18 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
         <div
           className={`${styles.modalOverlay} ${modal.isOpen ? styles.fadeIn : styles.fadeOut}`}
           onClick={closeModal}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="contact-modal-title"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape' || e.key === 'Enter') {
+              closeModal();
+            }
+          }}
+          tabIndex={-1}
         >
-          <div
+          <div 
             className={`${styles.modal} ${variantClass}`}
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-modal-title"
           >
             <div className={styles.modalContent}>
               <h3 id="contact-modal-title" className={styles.modalTitle}>
@@ -275,7 +294,6 @@ export default function ContactForm({ variant = 'purple' }: ContactFormProps) {
               <button
                 className={styles.modalButton}
                 onClick={closeModal}
-                autoFocus
               >
                 Okay
               </button>

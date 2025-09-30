@@ -8,7 +8,7 @@ export default function ContactSection() {
       <div className={styles.container}>
         <h2 className={styles.heading}>Contact</h2>
         <p className={styles.blurb}>
-          Get in touch if you have any questions, want to contribute or have a project you'd like to recommend
+          Get in touch if you have any questions, want to contribute or have a project you&apos;d like to recommend
         </p>
         <ContactForm variant="purple" />
       </div>

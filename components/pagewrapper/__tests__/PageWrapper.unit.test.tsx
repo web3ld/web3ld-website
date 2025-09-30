@@ -20,7 +20,7 @@ describe('PageWrapper', () => {
   it('sets data-active-section and dispatches activeSectionChange on mount', async () => {
     const events: string[] = [];
     const handler = (e: Event) => {
-      // @ts-ignore - detail is from CustomEvent
+      // @ts-expect-error - detail is from CustomEvent
       events.push(e.detail?.activeSection);
     };
     window.addEventListener('activeSectionChange', handler);
@@ -44,7 +44,7 @@ describe('PageWrapper', () => {
   it('updates attribute and dispatches event when active section changes', async () => {
     const events: string[] = [];
     const handler = (e: Event) => {
-      // @ts-ignore - detail is from CustomEvent
+      // @ts-expect-error - detail is from CustomEvent
       events.push(e.detail?.activeSection);
     };
     window.addEventListener('activeSectionChange', handler);

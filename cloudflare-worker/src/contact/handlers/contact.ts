@@ -1,4 +1,4 @@
-import { Env, ContactRequestData, RateLimitResult } from '../types';
+import { Env, RateLimitResult } from '../types';
 import { ContactRequestSchema } from '../schemas';
 import { verifyTurnstile } from '../services/turnstile';
 import { sendEmailViaBrevo } from '../services/email';

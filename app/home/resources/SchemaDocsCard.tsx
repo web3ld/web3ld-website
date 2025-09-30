@@ -37,7 +37,7 @@ export function SchemaDocsCard() {
         </p>
 
         <p className={styles.body}>
-          You can use these to build your project's authority in the semantic web.
+          You can use these to build your project&apos;s authority in the semantic web.
         </p>
 
         <p className={styles.body}>
