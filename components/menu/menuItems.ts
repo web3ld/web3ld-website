@@ -7,8 +7,8 @@ export interface MenuItem {
 
 export const menuItems: MenuItem[] = [
   {
-    label: 'Sponsor',
-    href: '/#sponsor',
+    label: 'About',
+    href: '/#about',
     isSection: true
   },
   {
@@ -17,13 +17,23 @@ export const menuItems: MenuItem[] = [
     isSection: true
   },
   {
-    label: 'Contact',
-    href: '/#contact',
+    label: 'Resources',
+    href: '/#resources',
     isSection: true
   },
   {
-    label: 'Terms',
-    href: '/terms',
-    isSection: false
+    label: 'Sponsor',
+    href: '/#sponsor',
+    isSection: true
+  },
+  {
+    label: 'Contribute',
+    href: '/#contribute',
+    isSection: true
+  },
+  {
+    label: 'Contact',
+    href: '/#contact',
+    isSection: true
   }
 ];

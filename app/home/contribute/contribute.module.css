@@ -1,0 +1,50 @@
+/* app/home/contribute/contribute.module.css */
+
+.section {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px 80px 16px;
+  background: var(--dark-green);
+  border-bottom: 2px solid var(--accent);
+}
+
+.inner {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: var(--primary-font);
+  color: var(--white);
+}
+
+.title {
+  margin: 0 0 28px 0;
+  text-align: center;
+  color: var(--green);
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--white);
+}
+
+/* Make links match the theme without default underlines */
+.link {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link:hover,
+.link:focus {
+  text-decoration-thickness: 2px;
+}

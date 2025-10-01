@@ -1,6 +1,9 @@
 // components/pagewrapper/useSectionObserver.ts
 import { useEffect, useRef, useState } from 'react';
 
+// Scroll offset in pixels (2rem = 32px assuming 16px base font size)
+const SCROLL_OFFSET = 60;
+
 export function useSectionObserver(sectionIds: string[]) {
   const [activeSection, setActiveSection] = useState<string>('');
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -15,11 +18,14 @@ export function useSectionObserver(sectionIds: string[]) {
         setTimeout(() => {
           const element = document.getElementById(hash);
           if (element) {
-            // Scroll so the top of the section is at the top of the viewport
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Calculate position with offset
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - SCROLL_OFFSET;
             
-            // Alternative: Center the section in the viewport
-            // element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
             
             setActiveSection(hash);
           }
@@ -114,7 +120,6 @@ export function scrollToSection(sectionId: string, options?: {
 }) {
   const {
     behavior = 'smooth',
-    block = 'start',
     retryCount = 5,
     retryDelay = 100
   } = options || {};
@@ -125,7 +130,14 @@ export function scrollToSection(sectionId: string, options?: {
     const element = document.getElementById(sectionId);
     
     if (element) {
-      element.scrollIntoView({ behavior, block });
+      // Calculate position with offset
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - SCROLL_OFFSET;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: behavior
+      });
       
       // Update URL hash
       window.history.pushState(null, '', `#${sectionId}`);
