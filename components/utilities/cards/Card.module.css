@@ -1,17 +1,23 @@
 /* components/utilities/cards/Card.module.css */
-
 .card {
   width: 400px;
   height: 300px;
-
   display: block;
-  overflow: auto; /* last resort if content spills */
-
+  overflow: auto;
   border-radius: var(--container-corners);
   box-shadow: var(--card-shadow);
-
   padding: 16px;
   background-clip: padding-box;
+}
+
+.autoHeight {
+  height: auto;
+  min-height: 50px;
+}
+
+.longWidth {
+  width: 800px;
+  max-width: 90%;
 }
 
 /* PURPLE variant */

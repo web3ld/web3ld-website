@@ -8,17 +8,21 @@ export interface CardProps {
   variant: CardVariant;
   children?: React.ReactNode;
   className?: string;
+  autoHeight?: boolean;
+  longWidth?: boolean;
 }
 
-export function Card({ variant, children, className }: CardProps) {
+export function Card({ variant, children, className, autoHeight = false, longWidth = false }: CardProps) {
+  const classes = [
+    styles.card,
+    autoHeight ? styles.autoHeight : '',
+    longWidth ? styles.longWidth : '',
+    variant === 'purple' ? styles.purple : styles.green,
+    className || ''
+  ].filter(Boolean).join(' ');
+
   return (
-    <div
-      className={[
-        styles.card,
-        variant === 'purple' ? styles.purple : styles.green,
-        className ?? ''
-      ].join(' ').trim()}
-    >
+    <div className={classes}>
       {children}
     </div>
   );
