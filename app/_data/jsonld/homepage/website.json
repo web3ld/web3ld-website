@@ -6,5 +6,6 @@
   "name": "Web3LD",
   "publisher": {
     "@id": "https://web3ld.org/#organization"
-  }
+  },
+  "keywords": "web3, linked data, semantic web, json-ld, schema.org, RitoVision, open source"
 }

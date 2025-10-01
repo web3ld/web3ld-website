@@ -12,9 +12,10 @@
   },
   "primaryImageOfPage": {
     "@type": "ImageObject",
-    "url": "https://web3ld.org/public/images/logos/wordmark.png"
+    "url": "https://web3ld.org/images/logos/wordmark.png"
   },
   "publisher": {
     "@id": "https://web3ld.org/#organization"
-  }
+  },
+  "keywords": "web3, linked data, semantic web, json-ld, structured data, open source, RitoVision"
 }
