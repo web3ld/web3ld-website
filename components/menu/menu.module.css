@@ -92,8 +92,8 @@
 .logoLink {
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: clamp(1.5rem, 4vh, 3rem);
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
   text-decoration: none;
 }
 
@@ -118,11 +118,12 @@
 .menuItems {
   list-style: none;
   padding: 0;
-  margin: 0 0 3rem 0;
+  margin: 0 0 clamp(1rem, 3vh, 3rem) 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   flex: 1;
+  min-height: 0; /* Allow flex item to shrink below content size */
 }
 
 .menuItem {
@@ -166,6 +167,29 @@
 .githubWrapper {
   display: flex;
   justify-content: center;
-  margin-top: auto;
-  padding-top: 2rem;
+  margin-top: clamp(1rem, 2vh, 2rem);
+  padding-top: clamp(1rem, 2vh, 2rem);
+}
+
+/* Height-based adjustments for very small screens */
+@media (max-height: 600px) {
+  .logoLink {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .menuItems {
+    margin-bottom: 0.75rem;
+    gap: 0.25rem;
+  }
+  
+  .menuItem {
+    padding: 0.625rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .githubWrapper {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
 }
