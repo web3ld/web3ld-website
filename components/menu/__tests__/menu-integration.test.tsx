@@ -3,9 +3,10 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
-import { act } from 'react'; // use React.act (not react-dom/test-utils)
+import { act } from 'react';
 import Hamburger from '../hamburger';
 import Menu from '../menu';
+import { menuItems } from '../menuItems';
 
 // Mock Next.js router
 vi.mock('next/navigation', () => ({
@@ -31,7 +32,7 @@ vi.mock('@components/utilities/socials/github', () => ({
 
 // CSS-modules-agnostic helpers for open/closed checks
 const expectOpen = (nav: HTMLElement) => {
-  expect(nav.className).toContain('open'); // matches "_open_xxx"
+  expect(nav.className).toContain('open');
 };
 const expectClosed = (nav: HTMLElement) => {
   expect(nav.className).not.toContain('open');
@@ -88,12 +89,10 @@ describe('Menu System Integration', () => {
     const nav = screen.getByRole('navigation');
     expectOpen(nav);
 
-    // Specifically the hamburger (disambiguate from the menu’s close button)
     const closeHamburger = screen.getByLabelText('Close menu', {
       selector: 'button[aria-controls="navigation-menu"]',
     });
 
-    // Use fireEvent for a synchronous click, then wait for React to commit
     fireEvent.click(closeHamburger);
 
     await waitFor(() => {
@@ -112,7 +111,6 @@ describe('Menu System Integration', () => {
     const nav = screen.getByRole('navigation');
     expectOpen(nav);
 
-    // Scope to the nav so we get the menu’s internal close button
     const closeButton = within(nav).getByRole('button', { name: 'Close menu' });
     await userEvent.click(closeButton);
 
@@ -122,7 +120,6 @@ describe('Menu System Integration', () => {
   });
 
   it('closes menu when a menu item is clicked', async () => {
-    // Avoid userEvent when fake timers are on; it can hang.
     vi.useFakeTimers();
     render(<MenuSystem />);
 
@@ -134,19 +131,17 @@ describe('Menu System Integration', () => {
     const nav = screen.getByRole('navigation');
     expectOpen(nav);
 
-    // On homepage, section items are buttons
-    const faqButton = within(nav).getByRole('button', { name: 'FAQ' });
-    fireEvent.click(faqButton);
+    // Use first menu item (should be a button on homepage)
+    const firstItem = menuItems[0];
+    const itemButton = within(nav).getByRole('button', { name: firstItem.label });
+    fireEvent.click(itemButton);
 
-    // Still open immediately
     expectOpen(nav);
 
-    // Flush ONLY the pending timeout from Menu.handleItemClick
     act(() => {
       vi.runOnlyPendingTimers();
     });
 
-    // Now closed
     expectClosed(nav);
     expect(hamburgerButton).toHaveAttribute('aria-label', 'Open menu');
   });
@@ -162,7 +157,6 @@ describe('Menu System Integration', () => {
     const nav = screen.getByRole('navigation');
     expectOpen(nav);
 
-    // The Menu component listens on document
     fireEvent.keyDown(document, { key: 'Escape' });
 
     expectClosed(nav);
@@ -185,7 +179,6 @@ describe('Menu System Integration', () => {
     const nav = screen.getByRole('navigation');
     expectOpen(nav);
 
-    // Menu closes on mousedown
     const outside = screen.getByTestId('outside');
     fireEvent.mouseDown(outside);
 
@@ -201,21 +194,17 @@ describe('Menu System Integration', () => {
     });
     const nav = screen.getByRole('navigation');
 
-    // Initial state
     expect(hamburgerButton).toHaveAttribute('aria-controls', 'navigation-menu');
     expect(nav).toHaveAttribute('id', 'navigation-menu');
 
-    // Open menu
     await userEvent.click(hamburgerButton);
     expectOpen(nav);
 
-    // Check all menu items are accessible (scoped within nav)
-    expect(within(nav).getByText('Sponsor')).toBeInTheDocument();
-    expect(within(nav).getByText('FAQ')).toBeInTheDocument();
-    expect(within(nav).getByText('Contact')).toBeInTheDocument();
-    expect(within(nav).getByText('Terms')).toBeInTheDocument();
+    // Check all menu items from menuItems array are accessible
+    menuItems.forEach((item) => {
+      expect(within(nav).getByText(item.label)).toBeInTheDocument();
+    });
 
-    // Close button inside the nav should be accessible
     expect(within(nav).getByRole('button', { name: 'Close menu' })).toBeInTheDocument();
   });
 });
