@@ -3,7 +3,21 @@ import request from 'supertest';
 import * as fs from 'fs';
 import * as path from 'path';
 
-// Load environment variables
+// Load .env.test.local if it exists
+const envTestPath = path.join(__dirname, '../../../.env.test.local');
+if (fs.existsSync(envTestPath)) {
+  const envTestContent = fs.readFileSync(envTestPath, 'utf8');
+  envTestContent.split('\n').forEach(line => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) return;
+    const [key, ...valueParts] = trimmed.split('=');
+    if (key && valueParts.length && !process.env[key]) {
+      process.env[key.trim()] = valueParts.join('=').trim().replace(/^["']|["']$/g, '');
+    }
+  });
+}
+
+// Load environment variables for backdoor key
 const envPath = path.join(__dirname, '../../../.dev.vars.production');
 const envContent = fs.readFileSync(envPath, 'utf8');
 const env: Record<string, string> = {};
@@ -17,7 +31,8 @@ envContent.split('\n').forEach(line => {
   }
 });
 
-const API_URL = process.env.TEST_URL || 'https://contact-form-worker-production.matthewjpellerito.workers.dev';
+// Default to localhost, can be overridden by TEST_URL env var
+const API_URL = process.env.TEST_URL || 'http://localhost:8787';
 
 describe('Contact Form API', () => {
   const validPayload = {

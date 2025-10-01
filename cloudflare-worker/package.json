@@ -1,5 +1,5 @@
 {
-  "name": "contact-form-worker",
+  "name": "cloudflare-worker",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,8 +13,8 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
-    "test:prod": "cross-env TEST_URL=https://contact-form-worker-production.matthewjpellerito.workers.dev vitest run",
-    "test:dev": "cross-env TEST_URL=http://localhost:8787 vitest run"
+    "test:dev": "cross-env TEST_URL=http://localhost:8787 vitest run",
+    "test:prod": "vitest run"
   },
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^7.3.4",
