@@ -30,7 +30,7 @@
   font-size: 1.125rem; /* same size as the old title used to be */
   color: var(--txt-heading);
   text-align: center; /* centered as requested */
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .textBody {
