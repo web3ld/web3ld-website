@@ -1,30 +1,54 @@
 'use client';
-
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { Card, CardVariant } from '@/components/utilities/cards/Card';
 import styles from './about.module.css';
 
 interface AboutCardData {
   variant: CardVariant;
-  content: string;
+  content: React.ReactNode;
 }
 
 const aboutCards: AboutCardData[] = [
   {
     variant: 'purple',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    content: (
+      <>
+        Countless bites of data are consumed and transmitted by search engines and AI, even relatively simple "schemas" can transform the context the information has and how it is used.
+      </>
+    )
   },
   {
     variant: 'green',
-    content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    content: (
+      <>
+        Web3LD helps developers and organizations implement <strong>Linked Data</strong> and <strong>JSON-LD</strong>, the building blocks of the Semantic Web.
+      </>
+    )
   },
   {
     variant: 'purple',
-    content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+    content: (
+      <>
+        We envision a future where messages don&apos;t drown in a sea of lost context but can remain durable and authoritative for the sources&apos; intended meanings.
+      </>
+    )
   },
   {
     variant: 'green',
-    content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    content: (
+      <>
+        Web3LD is led by <strong>Rito</strong>, creative-strategic powerhouse and operator of{' '}
+        <Link 
+          href="https://ritovision.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className={styles.ritoLink}
+        >
+          RitoVision
+        </Link>.
+      </>
+    )
   }
 ];
 
@@ -34,7 +58,7 @@ export default function About() {
       <h2 className={`${styles.title} color-cycle`}>About Web3LD</h2>
       
       <p className={styles.description}>
-        This is placeholder text that will be replaced with actual content about Web3LD and what we do.
+        Web3LD is an open-source initiative championing the Semantic Web by raising awareness and shipping practical infrastructure so information stays clear, portable, and machine-readable across the web.
       </p>
 
       <div className={styles.cardsContainer}>
