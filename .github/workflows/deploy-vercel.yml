@@ -8,15 +8,66 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: vercel-deploy-${{ github.sha }}
+  cancel-in-progress: true
+
 jobs:
+  check-tests:
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.check.outputs.should_deploy }}
+    steps:
+      - name: Check all test workflows
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            if (context.eventName === 'workflow_dispatch') {
+              core.setOutput('should_deploy', 'true');
+              return;
+            }
+            
+            const workflows = ['Lint', 'Vitest Tests', 'Playwright Tests'];
+            const { data: runs } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head_sha: context.payload.workflow_run.head_sha,
+              per_page: 100
+            });
+            
+            const relevantRuns = runs.workflow_runs.filter(run => 
+              workflows.some(w => run.name === w)
+            );
+            
+            // Check if any failed
+            const anyFailed = relevantRuns.some(run => run.conclusion === 'failure');
+            if (anyFailed) {
+              core.setOutput('should_deploy', 'false');
+              console.log('At least one test workflow failed');
+              return;
+            }
+            
+            // Check if all completed (success or skipped)
+            const allCompleted = workflows.every(workflowName => {
+              const run = relevantRuns.find(r => r.name === workflowName);
+              return run && (run.conclusion === 'success' || run.conclusion === 'skipped');
+            });
+            
+            core.setOutput('should_deploy', allCompleted ? 'true' : 'false');
+
   deploy:
-    # Only deploy if tests passed or were skipped (not failed)
-    if: |
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.workflow_run.conclusion == 'success' ||
-       github.event.workflow_run.conclusion == 'skipped')
+    needs: check-tests
+    if: needs.check-tests.outputs.should_deploy == 'true'
     environment: production       
     runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -32,7 +83,6 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
-      # Install Vercel CLI directly instead of using a wrapper action
       - name: Install Vercel CLI
         run: pnpm add -g vercel@latest
 
