@@ -7,6 +7,11 @@ export default function Hero() {
   const [showText, setShowText] = useState(false);
   const [showBottomText, setShowBottomText] = useState(false);
   const [showColorCycle, setShowColorCycle] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  
+  // Split the text
+  const staticText = "The Semantic Web is about ensuring a source's authority";
+  const typewriterText = " over its messages remain consistent across consumers and relayers.";
 
   useEffect(() => {
     const video = videoRef.current;
@@ -50,6 +55,28 @@ export default function Hero() {
     };
   }, [showText, showBottomText]);
 
+  // Typewriter effect
+  useEffect(() => {
+    if (!showBottomText) return;
+    
+    // Start typewriter after fade-in completes (500ms)
+    const startDelay = setTimeout(() => {
+      let currentIndex = 0;
+      const typeInterval = setInterval(() => {
+        if (currentIndex < typewriterText.length) {
+          setTypedText(typewriterText.slice(0, currentIndex + 1));
+          currentIndex++;
+        } else {
+          clearInterval(typeInterval);
+        }
+      }, 30); // Adjust typing speed here (lower = faster)
+      
+      return () => clearInterval(typeInterval);
+    }, 500); // Wait for fade-in to complete
+    
+    return () => clearTimeout(startDelay);
+  }, [showBottomText]);
+
   return (
     <section className={styles.hero} id="hero">
       <div className={styles.videoContainer}>
@@ -66,7 +93,8 @@ export default function Hero() {
           Keep Your Story Straight
         </h1>
         <div className={`${styles.bottomText} ${showBottomText ? styles.visible : ''}`}>
-          The semantic web is about ensuring a source&apos;s authority over its messages remain consistent across consumers and relayers.
+          {staticText}
+          <span className={styles.typewriter}>{typedText}</span>
         </div>
       </div>
     </section>
