@@ -10,7 +10,7 @@ export default function ResourcesSection() {
   return (
     <section id="resources" className={styles.section}>
       <div className={styles.inner}>
-        <h2 className={styles.title}>Resources</h2>
+        <h2 className={`${styles.title} color-cycle`}>Resources</h2>
 
         <div className={styles.wrapper}>
           <div className={styles.track}>

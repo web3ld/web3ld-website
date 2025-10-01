@@ -97,3 +97,23 @@ strong {
   background-color: var(--accent);     /* thumb color */
 }
 
+/* Color cycle animation - cycles between green and yellow */
+.color-cycle {
+  animation: colorCycle 6s infinite linear;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes colorCycle {
+  0%      { color: var(--green); }
+  33.33%  { color: var(--green); }
+  50%     { color: var(--yellow); }
+  83.33%  { color: var(--yellow); }
+  100%    { color: var(--green); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-cycle {
+    animation: none;
+    color: var(--green);
+  }
+}

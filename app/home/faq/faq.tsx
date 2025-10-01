@@ -93,7 +93,7 @@ That said, adding <strong>structured data</strong> is a <strong>low-cost</strong
   return (
     <section id="faq" className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.title}>FAQ</h2>
+        <h2 className={`${styles.title} color-cycle`}>FAQ</h2>
         <div className={styles.stack}>
           <Accordion items={items} variant="purple" />
         </div>

@@ -8,7 +8,7 @@ export default function ContributeSection() {
   return (
     <section id="contribute" className={styles.section}>
       <div className={styles.inner}>
-        <h2 className={styles.title}>How to Contribute</h2>
+        <h2 className={`${styles.title} color-cycle`}>How to Contribute</h2>
 
         <div className={styles.stack}>
           <p className={styles.text}>
