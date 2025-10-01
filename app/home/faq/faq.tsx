@@ -27,8 +27,8 @@ export default function FAQSection() {
           variant="purple"
           heading="Overview"
           renderHTML
-          text={`Structured markup data — also known as <strong>schemas</strong> — are standardized ways of adding extra meaning to information on websites.<br /><br />
-They create a <strong>structured data construct</strong> that helps contextualize content which would otherwise be <em>unstructured</em> or <em>semi-structured</em>.<br /><br />
+          text={`Structured markup data — also known as <strong>schemas</strong> — standardizes how we add extra meaning to information on websites.<br /><br />
+It creates a <strong>structured data construct</strong> that helps contextualize content which would otherwise be <em>unstructured</em> or <em>semi-structured</em>.<br /><br />
 This additional context makes it easier for systems like <strong>search engines</strong> and <strong>AI models</strong> to understand what information represents, improving indexing, relevance, and the way content is displayed or reasoned over.`}
         />
       ),
@@ -69,9 +69,9 @@ In practice, we help teams — especially <strong>open-source</strong> projects 
           variant="purple"
           heading="Getting Started"
           renderHTML
-          text={`First, learn the basics of <strong>structured markup data</strong>. You’ll find resources on this site, across the web, and many chatbot LLMs can help answer implementation questions.<br /><br />
+          text={`First, learn the basics of <strong>structured markup data</strong>. You&rsquo;ll find resources on this site, across the web, and many chatbot LLMs can help answer implementation questions.<br /><br />
 Then, add the appropriate <strong>schema</strong> to your website or app to complement the content you already have (e.g., Organization, Article, Product, Event).<br /><br />
-You’re always welcome to reach out to <strong>Web3LD</strong> for guidance — including reviews, recommendations, or direct support with implementation.`}
+You&rsquo;re always welcome to reach out to <strong>Web3LD</strong> for guidance — including reviews, recommendations, or direct support with implementation.`}
         />
       ),
     },
@@ -83,8 +83,22 @@ You’re always welcome to reach out to <strong>Web3LD</strong> for guidance —
           variant="purple"
           heading="Setting Expectations"
           renderHTML
-          text={`There’s no single metric or guarantee — different systems consume schemas differently, and results depend on your site’s overall content quality, technical health, and information architecture.<br /><br />
+          text={`There&rsquo;s no single metric or guarantee — different systems consume schemas differently, and results depend on your site&rsquo;s overall content quality, technical health, and information architecture.<br /><br />
 That said, adding <strong>structured data</strong> is a <strong>low-cost</strong> way to feed clear context into these systems. Major search engines use structured data to better understand, organize, and sometimes enhance how results are displayed. Many <strong>AI systems</strong> also leverage this context to interpret entities and relationships more reliably.`}
+        />
+      ),
+    },
+    {
+      value: 'item-7',
+      title: 'Who is behind Web3LD?',
+      content: (
+        <AccordionText
+          variant="purple"
+          heading="Founder"
+          renderHTML
+          text={`<strong>Web3LD</strong> was founded by <strong>Rito</strong>, a multi-disciplinary Chief Integration Officer, through his brand
+          <a href="https://ritovision.com" target="_blank" rel="noopener noreferrer"> RitoVision</a>.<br /><br />
+He currently leads the project, maintains the repository for this website, and provides operational support, including hands-on implementation of <strong>JSON-LD</strong> for projects that need a foundation or expansion.`}
         />
       ),
     },
